@@ -1,3 +1,5 @@
+## Terraform ##
+
 # Local .terraform directories
 .terraform/
 
@@ -35,3 +37,75 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+## Bicep / ARM ##
+
+# VS Code Bicep LSP cache
+bicep-cache/
+
+# Sensitive params              
+*.bicep.params.json       
+
+## Kubernetes / AKS ##
+helm-release.yaml
+*.kubeconfig
+
+# Alt names
+*.kubeconfig.*
+
+# Gatekeeper audit cache (if generated)
+audit-results.json
+
+## Python Functions ##
+__pycache__/.env
+
+# Local venv
+dotenv secrets.venv/
+
+# Alt venv
+env/                     
+
+## Node Functions ##
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Comment out if you *want* to commit lockfile
+package-lock.json        
+
+## Logs ##
+*.log
+*.tmp
+*.bak
+
+## Security Artefacts ##
+sbom*.json
+trivy*.json
+infracost*.json
+
+# If generating keys, may be a case *for* commiting public
+cosign.pub              # if you generate keys, keep public? optional
+
+# *Never* commit private key
+cosign.key              
+
+## IDE & OS Clutter ##
+.vscode/.idea/
+
+# macOS
+*.code-workspace.DS_Store
+
+# Windows
+Thumbs.db
+
+# Vim swap
+*.swp                    
+
+## Diagrams / Media ##
+*.vsdx
+
+# Raw draw.io files (consider committing if useful)
+*.drawio                
+
+# Avoid large GIF files - consider using Git LFS
+*.gif
