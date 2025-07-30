@@ -1,13 +1,13 @@
 ## Terraform ##
 
-# Local .terraform directories
+# Local .terraform directories.
 .terraform/
 
-# .tfstate files
+# .tfstate files.
 *.tfstate
 *.tfstate.*
 
-# Crash log files
+# Crash log files.
 crash.log
 crash.*.log
 
@@ -19,31 +19,31 @@ crash.*.log
 *.tfvars.json
 
 # Ignore override files as they are usually used to override resources locally and so
-# are not checked in
+# are not checked in.
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
 
-# Ignore transient lock info files created by terraform apply
+# Ignore transient lock info files created by terraform apply.
 .terraform.tfstate.lock.info
 
-# Include override files you do wish to add to version control using negated pattern
+# Include override files you do wish to add to version control using negated pattern.
 # !example_override.tf
 
-# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
+# Include tfplan files to ignore the plan output of command 'terraform plan -out=tfplan'.
 # example: *tfplan*
 
-# Ignore CLI configuration files
+# Ignore CLI configuration files.
 .terraformrc
 terraform.rc
 
 ## Bicep / ARM ##
 
-# VS Code Bicep LSP cache
+# VS Code Bicep LSP cache.
 bicep-cache/
 
-# Sensitive params              
+# Sensitive parameters.           
 *.bicep.params.json       
 
 ## Kubernetes / AKS ##
@@ -59,10 +59,10 @@ audit-results.json
 ## Python Functions ##
 __pycache__/.env
 
-# Local venv
+# Local venv.
 dotenv secrets.venv/
 
-# Alt venv
+# Alt venv.
 env/                     
 
 ## Node Functions ##
@@ -70,7 +70,7 @@ node_modules/
 npm-debug.log*
 yarn-error.log*
 
-# Comment out if you *want* to commit lockfile
+# Comment out if you *want* to commit lockfile.
 package-lock.json        
 
 ## Logs ##
@@ -83,22 +83,22 @@ sbom*.json
 trivy*.json
 infracost*.json
 
-# If generating keys, may be a case *for* commiting public
-cosign.pub              # if you generate keys, keep public? optional
+# If generating keys, there may be a case *for* commiting public
+cosign.pub
 
-# *Never* commit private key
+# *Never* commit private key.
 cosign.key              
 
 ## IDE & OS Clutter ##
 .vscode/.idea/
 
-# macOS
+# macOS.
 *.code-workspace.DS_Store
 
-# Windows
+# Windows.
 Thumbs.db
 
-# Vim swap
+# Vim swap.
 *.swp                    
 
 ## Diagrams / Media ##
@@ -107,5 +107,20 @@ Thumbs.db
 # Raw draw.io files (consider committing if useful)
 *.drawio                
 
-# Avoid large GIF files - consider using Git LFS
+# Avoid large GIF files - consider using Git LFS.
 *.gif
+
+## Other Exclusions ##
+
+# .DISABLED files.
+*.disabled
+
+# .OLD files.
+*.old
+
+# .vscode folder should only be checked in if sharing settings and configuration across a team.
+# See https://stackoverflow.com/questions/32964920/should-i-commit-the-vscode-folder-to-source-control.
+.vscode/
+
+# WIP and any other bits of code to be retained but not committed.
+WIP/*
