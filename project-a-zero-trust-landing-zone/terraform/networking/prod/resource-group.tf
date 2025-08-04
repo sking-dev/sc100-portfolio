@@ -1,5 +1,6 @@
 resource "azurerm_resource_group" "networking" {
-  name     = var.resource_group_name
+  name     = "alz-${var.domain}-rg-${var.location}" # Consider changing order of naming elements.
   location = var.location
-  tags     = var.tags
+
+  tags     = local.tags
 }

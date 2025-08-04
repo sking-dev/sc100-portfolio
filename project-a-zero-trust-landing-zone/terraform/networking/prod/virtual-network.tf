@@ -8,20 +8,24 @@ module "hub_vnet" {
   resource_group_name = azurerm_resource_group.networking.name
 
   # Optional inputs.
-  name                = "hub-vnet"
+  name                = "hub-vnet-${var.environment}" # Consider changing order of naming elements.
   subnets             = local.hub_subnet_prefixes
 
-  tags                = var.tags
+  tags                = local.tags
 }
 
 module "spoke_vnet" {
   source  = "Azure/avm-res-network-virtualnetwork/azurerm"
   version = "~> 0.9.0"
 
-  name                = "spoke1-vnet"
-  resource_group_name = azurerm_resource_group.networking.name
-  location            = azurerm_resource_group.networking.location
+  # Required inputs.
   address_space       = [var.spoke_vnet_address_space]
+  location            = azurerm_resource_group.networking.location
+  resource_group_name = azurerm_resource_group.networking.name
+
+  # Optional inputs.
+  name                = "spoke1-vnet-${var.environment}" # Consider changing order of naming elements.
   subnets             = local.spoke_subnet_prefixes
-  tags                = var.tags
+
+  tags                = local.tags
 }

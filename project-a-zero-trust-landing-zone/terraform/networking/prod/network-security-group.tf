@@ -6,7 +6,7 @@ module "app_nsg" {
 
   # Required inputs.  
   location            = var.location
-  name                = "app-nsg"
+  name                = "app-nsg-${var.environment}" # Consider changing order of naming elements.
   resource_group_name = azurerm_resource_group.networking.name
 
   # Optional inputs.  
@@ -26,7 +26,7 @@ module "app_nsg" {
     # Add more rules as needed
   ]
 
-  tags = var.tags
+  tags = local.tags
 }
 
 module "data_nsg" {
@@ -34,7 +34,7 @@ module "data_nsg" {
   version = "~> 0.5.0"
 
   location            = var.location
-  name                = "data-nsg"
+  name                = "data-nsg" # Consider changing order of naming elements.
   resource_group_name = azurerm_resource_group.networking.name
 
   security_rules = [
@@ -53,7 +53,7 @@ module "data_nsg" {
     # Add more rules as needed
   ]
 
-  tags = var.tags
+  tags = local.tags
 }
 
 # Associate each NSG with the relevant subnet.
