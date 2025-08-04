@@ -9,6 +9,7 @@ locals {
     "AzureBastionSubnet",
     "shared-services"
   ]
+
   spoke_subnet_prefixes = [
     "10.1.1.0/24",   # App Subnet
     "10.1.2.0/24"    # Data Subnet
@@ -17,4 +18,10 @@ locals {
     "app",
     "data"
   ]
+
+  tags = {
+    domain      = var.domain
+    environment = var.environment
+    owner       = var.owner
+  }
 }

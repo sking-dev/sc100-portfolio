@@ -8,5 +8,5 @@ module "private_dns" {
 
   # Optional inputs TBC.
 
-  tags                = var.tags
+  tags                = local.tags
 }

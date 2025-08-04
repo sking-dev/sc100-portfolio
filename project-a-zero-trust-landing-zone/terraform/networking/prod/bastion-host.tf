@@ -5,7 +5,7 @@ module "bastion" {
 
   # Required inputs.
   location            = azurerm_resource_group.networking.location
-  name                = "hub-bastion"
+  name                = "hub-bastion-${var.environment}" # Consider changing order of naming elements.
   resource_group_name = azurerm_resource_group.networking.name
 
   # Optional inputs.
@@ -15,5 +15,5 @@ module "bastion" {
     public_ip_address_id = var.bastion_public_ip_address_id
   }
 
-  tags                = var.tags
+  tags                = local.tags
 }
