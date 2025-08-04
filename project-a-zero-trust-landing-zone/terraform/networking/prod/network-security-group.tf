@@ -53,6 +53,15 @@ module "data_nsg" {
     # Add more rules as needed
   ]
 
+  diagnostic_settings = {
+    bastion_diag = {
+      workspace_resource_id          = data.azurerm_log_analytics_workspace.monitoring.id
+      log_analytics_destination_type = "Dedicated"
+      log_categories                 = local.log_categories_nsg
+      metric_categories              = ["AllMetrics"]
+    }
+  }
+
   tags = local.tags
 }
 

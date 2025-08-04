@@ -27,5 +27,14 @@ module "spoke_vnet" {
   name                = "spoke1-vnet-${var.environment}" # Consider changing order of naming elements.
   subnets             = local.spoke_subnet_prefixes
 
+  diagnostic_settings = {
+    bastion_diag = {
+      workspace_resource_id          = data.azurerm_log_analytics_workspace.monitoring.id
+      log_analytics_destination_type = "Dedicated"
+      log_categories                 = local.log_categories_vnet
+      metric_categories              = ["AllMetrics"]
+    }
+  }
+
   tags                = local.tags
 }
