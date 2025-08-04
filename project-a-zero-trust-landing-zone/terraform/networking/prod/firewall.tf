@@ -18,5 +18,14 @@ module "firewall" {
     public_ip_address_id = var.firewall_public_ip_address_id
   }
 
+  diagnostic_settings = {
+    bastion_diag = {
+      workspace_resource_id          = data.azurerm_log_analytics_workspace.monitoring.id
+      log_analytics_destination_type = "Dedicated"
+      log_categories                 = local.log_categories_firewall
+      metric_categories              = ["AllMetrics"]
+    }
+  }
+
   tags = local.tags
 }
