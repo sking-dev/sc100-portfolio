@@ -30,6 +30,6 @@ variable "hub_vnet_address_space" {
   default = "10.0.0.0/16"
 }
 
-variable "spoke_vnet_address_space" {
+variable "spoke1_vnet_address_space" {
   default = "10.1.0.0/16"
 }

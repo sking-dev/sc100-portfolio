@@ -105,6 +105,56 @@ prod/
 
 ---
 
+## Resource Naming Conventions
+
+To ensure clarity, consistency, and scalability across the Azure Landing Zone, all resource groups and resources follow the naming patterns below.
+
+### Resource Groups
+
+**Pattern:**  
+`rg-<location>-<project>-<domain>-<environment>`
+
+**Example:**  
+`rg-uks-alz-networking-prod`
+
+- `location`: Azure region short name (e.g., `uks` for UK South, `eus` for East US)
+- `project`: Project or workload name (e.g., `alz`)
+- `domain`: Functional domain (e.g., `networking`, `monitoring`, `identity`)
+- `environment`: Environment (e.g., `prod`, `nonprod`, `dev`, `test`)
+
+### Networking Resources
+
+**Pattern:**  
+`<type>-<project>-<hub|spokeX>-<role>-<environment>`
+
+**Examples:**
+
+- Hub VNet: `vnet-alz-hub-prod`
+- Spoke 1 VNet: `vnet-alz-spoke1-prod`
+- Hub Bastion: `bastion-alz-hub-prod`
+- Hub Firewall: `fw-alz-hub-prod`
+- Spoke 1 NSG (App Subnet): `nsg-alz-spoke1-app-prod`
+- Spoke 1 NSG (Data Subnet): `nsg-alz-spoke1-data-prod`
+- Spoke 1 App Subnet: `subnet-app-alz-spoke1-prod`
+- Hub Shared Services Subnet: `subnet-shared-alz-hub-prod`
+
+- `type`: Resource type abbreviation (e.g., `vnet`, `nsg`, `bastion`, `fw`, `subnet-app`)
+- `project`: Project or workload name (e.g., `alz`)
+- `hub|spokeX`: Logical network segment (`hub`, `spoke1`, `spoke2`, etc.)
+- `role`: Subnet or NSG role (e.g., `app`, `data`, `shared`, `mgmt`)
+- `environment`: Environment (`prod`, `nonprod`)
+
+> **Note:** The domain is included in the resource group name but not typically in the individual resource name, unless needed for disambiguation.  The `hub`/`spokeX` distinction is always included for networking resources to support clarity and scalability.  
+The `role` field is especially important for NSGs and subnets to avoid ambiguity and support clear mapping between resources.
+
+### Rationale
+
+- **Location** and **environment** are always included in resource group names for clarity and to prevent ambiguity in multi-region or multi-environment deployments.
+- **Project/workload**, **type**, and **logical segment** (`hub`/`spokeX`) ensure resources are easily identifiable, grouped logically, and scalable as the environment grows.
+- This pattern aligns with [Microsoft’s CAF naming and tagging best practices](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/naming-and-tagging) and supports enterprise-scale ALZ and Zero Trust architectures.
+
+---
+
 ## Getting Started
 
 - Review and update variables in `variables.tf` as needed for your environment

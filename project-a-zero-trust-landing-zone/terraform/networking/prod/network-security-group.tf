@@ -1,12 +1,12 @@
 # NOTE: As of July 2025, the Azure Verified Module (AVM) for Network Security Groups is available and recommended.
 # We use the AVM module for NSG creation, and the native resource block for subnet association.
-module "app_nsg" {
+module "app_nsg_spoke1" {
   source  = "Azure/avm-res-network-networksecuritygroup/azurerm"
   version = "~> 0.5.0"
 
   # Required inputs.  
   location            = var.location
-  name                = "app-nsg-${var.environment}" # Consider changing order of naming elements.
+  name                = "nsg-alz-spoke1-app-${var.environment}"
   resource_group_name = azurerm_resource_group.networking.name
 
   # Optional inputs.  
@@ -23,18 +23,27 @@ module "app_nsg" {
       destination_address_prefix = "*"
       description                = "Allow inbound HTTPS"
     },
-    # Add more rules as needed
+    # Add more rules as needed.
   ]
+
+  diagnostic_settings = {
+    nsg_diag = {
+      workspace_resource_id          = data.azurerm_log_analytics_workspace.monitoring.id
+      log_analytics_destination_type = "Dedicated"
+      log_categories                 = local.log_categories_nsg
+      metric_categories              = ["AllMetrics"]
+    }
+  }
 
   tags = local.tags
 }
 
-module "data_nsg" {
+module "data_nsg_spoke2" {
   source  = "Azure/avm-res-network-networksecuritygroup/azurerm"
   version = "~> 0.5.0"
 
   location            = var.location
-  name                = "data-nsg" # Consider changing order of naming elements.
+  name                = "nsg-alz-spoke1-data-${var.environment}"
   resource_group_name = azurerm_resource_group.networking.name
 
   security_rules = [
@@ -50,11 +59,11 @@ module "data_nsg" {
       destination_address_prefix = "*"
       description                = "Allow inbound SQL"
     },
-    # Add more rules as needed
+    # Add more rules as needed.
   ]
 
   diagnostic_settings = {
-    bastion_diag = {
+    nsg_diag = {
       workspace_resource_id          = data.azurerm_log_analytics_workspace.monitoring.id
       log_analytics_destination_type = "Dedicated"
       log_categories                 = local.log_categories_nsg
@@ -66,12 +75,12 @@ module "data_nsg" {
 }
 
 # Associate each NSG with the relevant subnet.
-resource "azurerm_subnet_network_security_group_association" "app" {
+resource "azurerm_subnet_network_security_group_association" "app_spoke1" {
   subnet_id                 = module.spoke_vnet.subnets["app"].resource_id
   network_security_group_id = module.app_nsg.resource.id
 }
 
-resource "azurerm_subnet_network_security_group_association" "data" {
+resource "azurerm_subnet_network_security_group_association" "data_spoke1" {
   subnet_id                 = module.spoke_vnet.subnets["data"].resource_id
   network_security_group_id = module.data_nsg.resource.id
 }
