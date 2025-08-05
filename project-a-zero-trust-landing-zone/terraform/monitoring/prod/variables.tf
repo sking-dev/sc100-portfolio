@@ -12,7 +12,7 @@ variable "environment" {
 
 variable "location" {
   description = "Azure region for resources."
-  default     = "East US"
+  default     = "uksouth"
 }
 
 variable "owner" {

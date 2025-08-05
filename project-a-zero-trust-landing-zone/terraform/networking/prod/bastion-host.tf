@@ -1,11 +1,11 @@
-# NOTE: Create variables plus any additional optional inputs to make this code operational.
+# TODO: Create variables plus any additional optional inputs to make this code operational.
 module "bastion" {
   source  = "Azure/avm-res-network-bastionhost/azurerm"
   version = "~> 0.8.0"
 
   # Required inputs.
   location            = azurerm_resource_group.networking.location
-  name                = "hub-bastion-${var.environment}" # Consider changing order of naming elements.
+  name                = "bastion-alz-hub-${var.environment}"
   resource_group_name = azurerm_resource_group.networking.name
 
   # Optional inputs.
@@ -24,5 +24,5 @@ module "bastion" {
     }
   }
 
-  tags                = local.tags
+  tags = local.tags
 }

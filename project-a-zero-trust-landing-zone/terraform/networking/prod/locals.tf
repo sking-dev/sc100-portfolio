@@ -31,11 +31,14 @@ locals {
     "VMProtectionAlerts"
   ]
 
-  spoke_subnet_prefixes = [
+  # Generate short version of Azure location to use in resource naming.
+  region_short = var.location == "uksouth" ? "uks" : "ukw"
+
+  spoke1_subnet_prefixes = [
     "10.1.1.0/24",   # App Subnet
     "10.1.2.0/24"    # Data Subnet
   ]
-  spoke_subnet_names = [
+  spoke1_subnet_names = [
     "app",
     "data"
   ]
